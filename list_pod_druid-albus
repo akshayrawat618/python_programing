@@ -1,0 +1,8 @@
+Listing the API content
+{'api_version': 'v1',
+ 'items': [],
+ 'kind': 'PodList',
+ 'metadata': {'_continue': None,
+              'remaining_item_count': None,
+              'resource_version': '9169879549',
+              'self_link': None}}

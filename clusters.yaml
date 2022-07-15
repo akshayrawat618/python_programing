@@ -1,0 +1,152 @@
+# Setup the right `key_path` of your laptop when druid basic
+# authentication/authorization is enabled for your cluster
+
+druid-cluster:
+  iq-druid-prod:
+    cluster_name: prod
+    role: 'iq-druid'
+    env: 'prod'
+    zones: 'atla'
+    pagerduty: 'iq-druid@twittertcc.pagerduty.com'
+    historical_tier:
+      default-replica-1: 100
+    middlemanager_tier: ['_default_worker_category']
+  druid-gandalf-prod:
+    cluster_name: prod
+    role: 'druid-gandalf'
+    env: 'prod'
+    zones: 'atla'
+    key_path: '/var/lib/tss/keys/druid-gandalf/atla/prod/admin.yaml'
+    pagerduty: 'druid@twittertcc.pagerduty.com'
+    streaming_datasets:
+      patternMatches:
+        kafka_cluster: main-2
+        kafka_cluster_zone: atla
+        kafka_topic: smyte_pattern_matches
+      smyteIdFeedFeatures:
+        kafka_cluster: main-2
+        kafka_cluster_zone: atla
+        kafka_topic: smyte_feed_features
+      FeedFeatures:
+        kafka_cluster: main-2
+        kafka_cluster_zone: atla
+        kafka_topic: botmaker_feed_features_json
+      RepairEvents:
+        kafka_cluster: main-1
+        kafka_cluster_zone: atla
+        kafka_topic: fleethealth_metrics_repair_prod
+    historical_tier:
+      smyte-replica-1: 270
+      smyte-replica-2: 1060
+    middlemanager_tier: ['_default_worker_category']
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 99 for 15 of 30m'
+        critical: '> 99 for 30 of 30m'
+  ads-druid-prod:
+    cluster_name: prod
+    role: 'ads-druid'
+    env: 'prod'
+    zones: 'atla'
+    pagerduty: 'ads-druid@twittertcc.pagerduty.com'
+    historical_tier:
+      cold-replica-1: 220
+      cold-replica-2: 220
+      default-replica-1: 325
+      default-replica-2: 325
+      marketplace-replica-1: 290
+      marketplace-replica-2: 290
+    middlemanager_tier: ['_default_worker_category']
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 80 for 15 of 30m'
+        critical: '> 80 for 30 of 30m'
+  druid-merlin-prod:
+    cluster_name: prod
+    role: 'druid-merlin'
+    env: 'prod'
+    zones: 'atla'
+    key_path: '/var/lib/tss/keys/druid-merlin/atla/prod/admin.yaml'
+    pagerduty: 'druid-merlin@twittertcc.pagerduty.com'
+    historical_tier:
+      replica-1: 30
+      replica-2: 30
+    middlemanager_tier: ['_default_worker_category']
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 80 for 15 of 30m'
+        critical: '> 80 for 30 of 30m'
+  druid-hermione-prod:
+    cluster_name: prod
+    role: 'druid-hermione'
+    env: 'prod'
+    zones: 'atla'
+    key_path: '/var/lib/tss/keys/druid-hermione/atla/prod/admin.yaml'
+    pagerduty: 'druid-hermione@twittertcc.pagerduty.com'
+    historical_tier:
+      default-replica-1: 40
+      default-replica-2: 80
+    middlemanager_tier: ['_default_worker_category']
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 80 for 15 of 30m'
+        critical: '> 80 for 30 of 30m'
+  druid-albus-prod:
+    cluster_name: prod
+    role: 'druid-albus'
+    env: 'prod'
+    zones: 'qus1'
+    pagerduty: 'druid-albus@twittertcc.pagerduty.com'
+    historical_tier:
+      replica-1: 2400
+      replica-2: 2400
+      cold-replica-1: 30
+      cold-replica-2: 30
+    middlemanager_tier: [ '_default_worker_category','hourly','daily' ]
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 80 for 15 of 30m'
+        critical: '> 80 for 30 of 30m'
+      hourly:
+        warn: '> 80 for 15 of 30m'
+        critical: '> 80 for 30 of 30m'
+    native_tasks:
+      default_middlemanager_tier: '_default_worker_category'
+      datasource_middlemanager_tier_map:
+        enriched_user_served_impression: 'hourly'
+        campaign_form_sessions_pivot: 'hourly'
+        external_attribution_record: 'hourly'
+        recent_flattened_csi: 'hourly'
+  druid-albus-coreads:
+    cluster_name: coreads
+    role: 'druid-albus'
+    env: 'prod'
+    zones: 'qus1'
+    pagerduty: 'druid-albus@twittertcc.pagerduty.com'
+    historical_tier:
+      fast-1: 590
+      fast-2: 590
+    middlemanager_tier: ['_default_worker_category']
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 80 for 15 of 30m'
+        critical: '> 80 for 30 of 30m'
+  druid-hamuul-prod:
+    cluster_name: prod
+    role: 'druid-hamuul'
+    env: 'prod'
+    zones: 'qus1'
+    pagerduty: 'druid-hamuul@twittertcc.pagerduty.com'
+    historical_tier:
+      replica-1: 220
+      replica-2: 220
+    middlemanager_tier: ['_default_worker_category']
+    taskslotusage_predicates:
+      _default_worker_category:
+        warn: '> 90 for 15 of 30m'
+        critical: '> 90 for 30 of 30m'
+  druid-albus-devel:
+    cluster_name: devel
+    role: 'druid-albus'
+    env: 'devel'
+    zones: 'qus1-c1'
