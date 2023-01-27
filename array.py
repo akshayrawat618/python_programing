@@ -1,12 +1,19 @@
-import array 
-import numpy as np
-#new_array = array.array('1',[1,2,3])
-#print(new_array[0])
+#import numpy
+#my_array = numpy.array([0, 1, 2, 3, 4])
+#print(my_array)
 
-arr = [1232121]
-print(len(arr))
+a = [0,1,2,3,4]
+print(type(a))
 
 
-numpy_array = np.array([1,2,3])
-print(numpy_array)
+'''
+#To get the length of the array
+lenght_of_array = len(a)
+print(lenght_of_array)
+'''
+'''
+#Code to traverse the array
+for x in a:
+    print(x)
 
+'''
